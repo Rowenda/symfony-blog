@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} - Accueil {% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+      <!-- CSS personnelles spécifiques a la page d'accueil -->
+    <link href="{{ asset('css/home.css') }}" rel="stylesheet">
+
+{% endblock %}
+
+{% block body %}
+<div class="jumbotron">
+  <h1 class="display-4">Blog réalisé avec Symfony</h1>
+  <p class="lead">Ce blog est réalisé a l'aide du framework symfony</p>
+</div>
+
+<div class='container'>
+    {% for post in tablePost %}
+    <div class="card" style="width:700px;">
+    <img src={{post.image}}  class="card-img-top" alt="...">
+    <div class="card-body">
+        <h5 class="card-title">{{post.title}}</h5>
+        <p class="card-text">{{post.content|slice(0,150)}}</p>
+        <div class="card-footer"> créé le {{post.createdAt|date("d/m/Y") }} par {{post.author}} </div>
+        <a href="#" class="btn btn-secondary">En savoir plus...</a>
+    </div>
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock %}
