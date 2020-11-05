@@ -1,12 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ parent() }} - Accueil {% endblock %}
+{% block title %}{{ parent() }} - Article {% endblock %}
 
 {% block stylesheets %}
     {{ parent() }}
-
-      <!-- CSS personnelles spécifiques a la page d'accueil -->
-    <link href="{{ asset('css/home.css') }}" rel="stylesheet">
 
 {% endblock %}
 
@@ -17,17 +14,26 @@
 </div>
 
 <div class='container'>
-    {% for post in posts %}
     <div class="card" style="width:700px;">
+     <!-- Preview Image -->
     <img src={{post.image}}  class="card-img-top" alt="...">
     <div class="card-body">
         <h5 class="card-title">{{post.title}}</h5>
-        <span class="badge badge-secondary">{{ post.category.name }}</span>
-        <p class="card-text">{{post.content|slice(0,150)}}</p>
+         <!-- Category -->
+    <span class="badge badge-secondary">{{ post.category.name }}</span>
+    <!-- Post Content -->
+        <p class="card-text">{{post.content}}</p>
+        <!-- Author and date -->
         <div class="card-footer"> créé le {{post.createdAt|date("d/m/Y") }} par {{post.author}} </div>
-        <a href="{{ path('post.index', {'slug':post.slug}) }}" class="btn btn-secondary">Lire la suite</a>
     </div>
     </div>
+    {% for comment in post.comments %}
+        
+        <div>
+        <div>{{comment.user}} le {{comment.createdAt|date("d/m/Y")}}</div>
+        <div>{{comment.content}}</div>
+        </div>
+
     {% endfor %}
 </div>
 
