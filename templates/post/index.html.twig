@@ -8,11 +8,6 @@
 {% endblock %}
 
 {% block body %}
-<div class="jumbotron">
-  <h1 class="display-4">Blog réalisé avec Symfony</h1>
-  <p class="lead">Ce blog est réalisé a l'aide du framework symfony</p>
-</div>
-
 <div class='container'>
     <div class="card" style="width:700px;">
      <!-- Preview Image -->
@@ -27,14 +22,37 @@
         <div class="card-footer"> créé le {{post.createdAt|date("d/m/Y") }} par {{post.author}} </div>
     </div>
     </div>
-    {% for comment in post.comments %}
-        
-        <div>
-        <div>{{comment.user}} le {{comment.createdAt|date("d/m/Y")}}</div>
-        <div>{{comment.content}}</div>
-        </div>
 
-    {% endfor %}
+    <!-- Formulaire d'ajout de commentaire -->
+    <div class="card my-4">
+        <h5 class="card-header">Laissez un commentaire:</h5>
+        <div class="card-body">
+            {{ form_start(form, {'attr':{'id':'comment-form'}}) }}
+            {{ form_widget(form) }}
+            <input type="submit" value="Envoyer mon commentaire">
+            {{ form_end(form) }}
+        </div>
+    </div>
+
+        <!-- List of comments -->
+    {% if post.comments|length == 0 %}
+        <p>Soyez le premier à commenter cet article !</p>
+    {% else %}
+        {% for comment in post.comments %}
+            
+            <div>
+            <div>{{comment.user}} le {{comment.createdAt|date("d/m/Y")}}</div>
+            <div>{{comment.content}}</div>
+            </div>
+        {% endfor %}
+    {%  endif %}
 </div>
 
 {% endblock %}
+
+        {% block javascripts %} {{ parent() }}
+
+        <!-- Script personnel global -->
+        <script src="{{ asset('js/post.js') }}"></script>
+
+        {% endblock %}

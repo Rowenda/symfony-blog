@@ -19,7 +19,7 @@ class AppFixtures extends Fixture
         PostFactory::new()->createMany(10);
         
         //Création de commentaires grâce a CommentFactory, l'usine a fabriquer des commentaires
-        CommentFactory::new()->createMany(10);
+        CommentFactory::new()->createMany(45);
 
         // Enregistrement des objets créés en base de données
         $manager->flush();
