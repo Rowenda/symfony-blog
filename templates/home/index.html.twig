@@ -24,7 +24,7 @@
         <h5 class="card-title">{{post.title}}</h5>
         <span class="badge badge-secondary">{{ post.category.name }}</span>
         <p class="card-text">{{post.content|slice(0,150)}}</p>
-        <div class="card-footer"> créé le {{post.createdAt|date("d/m/Y") }} par {{post.author}} </div>
+        <div class="card-footer"> créé le {{post.createdAt|date("d/m/Y") }} par {{ post.user.fullname }} </div>
         <a href="{{ path('post.index', {'slug':post.slug}) }}" class="btn btn-secondary">Lire la suite</a>
     </div>
     </div>

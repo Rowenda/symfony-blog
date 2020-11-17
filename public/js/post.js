@@ -5,7 +5,7 @@ function onSubmitCommentForm(event) {
 
     const url = new URL(window.location.href);
 
-    fetch(url.pathname, {
+    fetch(`${url.pathname}/add-comment`, {
             method: 'post',
             body: data,
             headers: {
@@ -13,7 +13,14 @@ function onSubmitCommentForm(event) {
             }
         })
         .then(response => response.text())
-        .then(data => console.log(data));
+        .then(html => {
+            const container = document.querySelector('.comments-list');
+            container.innerHTML = html + container.innerHTML;
+
+            document.getElementById('comment-form').reset();
+
+            $('#add-comment-success-modal').modal('show')
+        });
 }
 
 /**

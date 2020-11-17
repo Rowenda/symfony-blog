@@ -38,7 +38,7 @@ final class PostFactory extends ModelFactory
             'title' => self::faker()->sentence(),
             'content' => self::faker()->text(2500),
             'image' => "https://picsum.photos/seed/post-" . rand(0,500) . "/750/300",
-            'author' => self::faker()->name(),
+            'user' => UserFactory::findOrCreate(['email' => 'admin@admin.com']),
             'createdAt' => self::faker()->dateTimeBetween('-3 years', 'now', 'Europe/Paris'),
             'category' => CategoryFactory::random()
         ];

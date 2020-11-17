@@ -1,0 +1,23 @@
+<table class="table table-hover table-sm">
+    <thead>
+    <tr>
+        <th scope="col">Créé le</th>
+        <th scope="col">Auteur</th>
+        <th scope="col">Contenu</th>
+        <th scope="col">Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for comment in comments %}
+        <tr>
+            <td>{{ comment.createdAt|date('d/m/Y H:i', 'Europe/Paris') }}</td>
+            <td>{{ comment.user.firstname}} {{ comment.user.lastname}}</td>
+            <td>{{ comment.content|slice(0,160) }}</td>
+            <td>
+                <a href="#" class="post-edit mr-3"><i class="fas fa-edit"></i></a>
+                <a href="#" class="post-remove"><i class="fas fa-trash-alt"></i></a>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

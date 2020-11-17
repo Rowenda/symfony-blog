@@ -8,6 +8,10 @@
 {% endblock %}
 
 {% block body %}
+
+    <!-- Inclusion du template de la modal de confirmation d'ajout de commentaire -->
+    {% include 'modals/_success.html.twig' with {'message':'Commentaire envoyé avec succès', 'id':'add-comment-success-modal'} %}
+
 <div class='container'>
     <div class="card" style="width:700px;">
      <!-- Preview Image -->
@@ -19,34 +23,34 @@
     <!-- Post Content -->
         <p class="card-text">{{post.content}}</p>
         <!-- Author and date -->
-        <div class="card-footer"> créé le {{post.createdAt|date("d/m/Y") }} par {{post.author}} </div>
+        <div class="card-footer"> créé le {{post.createdAt|date("d/m/Y") }} par {{ post.user.fullname }} </div>
     </div>
     </div>
 
-    <!-- Formulaire d'ajout de commentaire -->
-    <div class="card my-4">
-        <h5 class="card-header">Laissez un commentaire:</h5>
-        <div class="card-body">
-            {{ form_start(form, {'attr':{'id':'comment-form'}}) }}
-            {{ form_widget(form) }}
-            <input type="submit" value="Envoyer mon commentaire">
-            {{ form_end(form) }}
-        </div>
-    </div>
-
-        <!-- List of comments -->
-    {% if post.comments|length == 0 %}
-        <p>Soyez le premier à commenter cet article !</p>
-    {% else %}
-        {% for comment in post.comments %}
-            
-            <div>
-            <div>{{comment.user}} le {{comment.createdAt|date("d/m/Y")}}</div>
-            <div>{{comment.content}}</div>
+    {% if is_granted('ROLE_USER') %}
+        <div class="card my-4">
+            <h5 class="card-header">Laissez un commentaire:</h5>
+            <div class="card-body">
+                {{ form_start(form, {'attr':{'id':'comment-form'}}) }}
+                {{ form_widget(form) }}
+                <input type="submit" value="Envoyer mon commentaire">
+                {{ form_end(form) }}
             </div>
-        {% endfor %}
-    {%  endif %}
-</div>
+        </div>
+    {% else %}
+        <p><a href="{{ path('security.login') }}">Connectez-vous</a> pour ajouter un commentaire.</p>
+    {% endif %}
+
+<!-- List of comments -->
+    <ul class="comments-list">
+        {% if post.comments|length == 0 %}
+            <li>Soyez le premier à commenter cet article !</li>
+        {% else %}
+            {% for comment in post.comments %}
+                {% include 'post/_comment.html.twig' %}
+            {% endfor %}
+        {% endif %}
+    </ul>
 
 {% endblock %}
 
