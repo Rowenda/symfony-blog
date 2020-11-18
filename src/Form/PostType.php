@@ -2,8 +2,10 @@
 
 namespace App\Form;
 
+use Symfony\Component\Validator\Constraints\Image;
 use App\Entity\Post;
 use App\Entity\Category;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use App\Repository\CategoryRepository;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -27,7 +29,17 @@ class PostType extends AbstractType
                         ->orderBy('category.name', 'ASC');
                 },
                 ])
-        ;
+            ->add('imageFile', FileType::class, [
+                'label' => 'Image',
+                'mapped' => false,
+                'required' => false,
+                'constraints' => [
+                    new Image([
+                        'maxSize' => '2M',
+                        'maxSizeMessage' => 'Le poids du fichier ne doit pas exécder 2Mo.'
+                    ])
+                ]
+                ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

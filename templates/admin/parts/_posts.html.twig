@@ -18,9 +18,9 @@
             <td>{{ post.createdAt|date('d/m/Y H:i', 'Europe/Paris') }}</td>
             <td>{{ post.title|slice(0,160) }}</td>
             <td>{{ post.user.fullname }}</td>
-            <td>{{ post.image }}</td>
+            <td><img src="{{ asset_post_image(post.image) }}" alt="" width="150" height="150"></td>
             <td>
-                <a href="#" class="post-edit mr-3"><i class="fas fa-edit"></i></a>
+                <a href="{{ path('admin.post.edit', {'id':post.id}) }}" class="post-edit mr-3"><i class="fas fa-edit"></i></a>
                 <a href="#" class="post-remove"><i class="fas fa-trash-alt"></i></a>
             </td>
         </tr>

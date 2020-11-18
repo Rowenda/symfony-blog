@@ -14,11 +14,11 @@
 
 <div class='container'>
     <div class="card" style="width:700px;">
-     <!-- Preview Image -->
-    <img src={{post.image}}  class="card-img-top" alt="...">
+    <!-- Preview Image -->
+    <img src="{{ asset_post_image(post.image) }}"   class="card-img-top" alt="...">
     <div class="card-body">
         <h5 class="card-title">{{post.title}}</h5>
-         <!-- Category -->
+        <!-- Category -->
     <span class="badge badge-secondary">{{ post.category.name }}</span>
     <!-- Post Content -->
         <p class="card-text">{{post.content}}</p>
