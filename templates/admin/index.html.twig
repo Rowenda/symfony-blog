@@ -24,4 +24,15 @@
 
 
 
+    {% include 'modals/_success.html.twig' with {'message':'Article supprimé.', 'id':'remove-post-success-modal'} %}
+    {% include 'modals/_confirm.html.twig' with {'message':'Êtes-vous sûr de vouloir supprimer cet article ?', 'id':'remove-post-confirm-modal'} %}
+
+{% endblock %}
+
+{% block javascripts %}
+
+    {{  parent() }}
+
+    <script src="{{ asset('js/admin/admin.js') }}" defer></script>
+
 {% endblock %}

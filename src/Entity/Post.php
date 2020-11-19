@@ -53,8 +53,8 @@ class Post
      */
     private $category;
 
-/**
-     * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="post")
+    /**
+     * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="post", cascade={"remove"})
      * @ORM\OrderBy({"createdAt" = "DESC"})
      */
     private $comments;
